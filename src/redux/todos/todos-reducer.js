@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 export const fetchTodos = createAsyncThunk(
     'todos/fetchTodos',
     async function() {
-        const response = await fetch('https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts');
+        const response = await fetch('https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts');  //  ?_limit=5
         const data = await response.json();
         return data;
     }
@@ -15,23 +15,39 @@ const todoSlice = createSlice({
     initialState:{
         todos:[],
         filter:'',
+        status: null,
+        error: null,
     },
     
     reducers:{
-        addTodo(state, actions){
+        addTodo(state, action){
             state.todos.push({
                 id: nanoid(),
-                name: actions.payload.name,
-                number: actions.payload.number,})
+                name: action.payload.name,
+                phone: action.payload.phone,})
         },
-        deleteTodo(state, actions){
-            state.todos = state.todos.filter(({id}) => id !== actions.payload.id)   
+        deleteTodo(state, action){
+            state.todos = state.todos.filter(({id}) => id !== action.payload.id)   
         },
         changeFilter(state, {payload}){
             state.filter = payload;
         },
 
-        // extraReducer
+        extraReducer:{
+            [fetchTodos.pending]:(state, _) => {
+                state.status = 'loading';
+                state.error = null;
+            },
+            [fetchTodos.fulfilled]:(state, action) => {
+                state.status = 'resolve';
+                state.todos = action.payload;
+                // state.todos.push('todododododos')
+            }, 
+            [fetchTodos.rejected]:(state, _) => {
+                state.status = 'reject';
+                // state.error = 'error';
+            },  
+        }
     }
 })
 

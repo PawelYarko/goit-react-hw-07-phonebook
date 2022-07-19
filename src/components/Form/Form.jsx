@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../../redux/todos/todos-reducer';
+import { addTodo, fetchTodos } from '../../redux/todos/todos-reducer';
 import s from './Form.module.css';
 
 export default function Form() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setNumber] = useState('');
 
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todos.todos);
 
+  useEffect(() => { 
+    dispatch(fetchTodos());
+  }, [dispatch])
+
   const addTask = () => {
-    dispatch(addTodo({ name, number }));
+    dispatch(addTodo({ name, phone }));
   };
   const handleChangeName = e => setName(e.currentTarget.value);
 
@@ -56,7 +60,7 @@ export default function Form() {
           className={s.inputNumber}
           type="tel"
           name="number"
-          value={number}
+          value={phone}
           onChange={handleChangeNumber}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
