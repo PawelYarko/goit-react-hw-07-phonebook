@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import todosActions from '../../redux/todos/todos-actions';
+import { useDispatch } from 'react-redux';
+import { changeFilter } from '../../redux/todos/todos-reducer';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.todos.filter);
 
   const onFilterChange = e => {
     const normalizedFilter = e.currentTarget.value.toLowerCase();
-    dispatch(todosActions.changeFilter(normalizedFilter));
+    dispatch(changeFilter(normalizedFilter));
   };
 
   return (
@@ -16,7 +15,6 @@ const Filter = () => {
       <input
         type="text"
         name="filter"
-        value={filter}
         onChange={onFilterChange}
       />
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import todosActions from '../../redux/todos/todos-actions';
+import { addTodo } from '../../redux/todos/todos-reducer';
 import s from './Form.module.css';
 
 export default function Form() {
@@ -8,10 +8,10 @@ export default function Form() {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.todos.items);
+  const todos = useSelector(state => state.todos.todos);
 
   const addTask = () => {
-    dispatch(todosActions.addTodo({ name, number }));
+    dispatch(addTodo({ name, number }));
   };
   const handleChangeName = e => setName(e.currentTarget.value);
 
@@ -20,7 +20,7 @@ export default function Form() {
   const onContactAdd = e => {
     e.preventDefault();
 
-    const foundContact = contacts.find(
+    const foundContact = todos.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 

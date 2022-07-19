@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import todoActions from '../../redux/todos/todos-actions';
+import { deleteTodo } from '../../redux/todos/todos-reducer';
 import s from './Contacts.module.css';
 
 const ContactsList = () => {
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.todos.items);
+  const todos = useSelector(state => state.todos.todos);
   const filter = useSelector(state => state.todos.filter);
 
   const visibleContacts = todos.filter(contact =>
@@ -20,7 +20,7 @@ const ContactsList = () => {
           <button
             className={s.buttonDelete}
             type="button"
-            onClick={() => dispatch(todoActions.deleteTodo(id))}
+            onClick={() => dispatch(deleteTodo({id}))}
           >
             Delete
           </button>
