@@ -1,7 +1,5 @@
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
-// import { combineReducers } from 'redux';
 import { nanoid } from 'nanoid';
-// import  actions from './todos-actions';
 
 export const fetchTodos = createAsyncThunk(
     'todos/fetchTodos',
@@ -20,34 +18,6 @@ const todoSlice = createSlice({
     },
     
     reducers:{
-        // items(){
-        //     [actions.addTodo]: (state, {payload}) => [...state, payload],
-        //     [actions.deleteTodo]: (state, {payload}) => state.filter(({id}) => id !== payload),
-        // },
-
-        // filter(){
-        //     [actions.changeFilter]: (_, {payload}) => payload,
-        // },
-
-//         import {createAction} from '@reduxjs/toolkit';
-// import { nanoid } from 'nanoid';
-
-// const addTodo = createAction('todos/add', ({name, number}) => ({
-    // payload:{
-    //     id: nanoid(),
-    //     name,
-    //     number,
-    // }
-// }) );
-
-// const changeFilter = createAction('todos/filter');
-
-// const deleteTodo = createAction('todos/delete');
-// // eslint-disable-next-line
-// export default {addTodo , changeFilter, deleteTodo};
-
-
-
         addTodo(state, actions){
             state.todos.push({
                 id: nanoid(),
@@ -65,20 +35,5 @@ const todoSlice = createSlice({
     }
 })
 
-// const items = createReducer([], {
-//     [actions.addTodo]: (state, {payload}) => [...state, payload],
-//     [actions.deleteTodo]: (state, {payload}) => state.filter(({id}) => id !== payload),
-// });
-
-
-// const filter = createReducer('', {
-//     [actions.changeFilter]: (_, {payload}) => payload,
-// });
-
-
-// export default combineReducers({
-//       items,
-//       filter
-// });
 export const {addTodo, deleteTodo, changeFilter} = todoSlice.actions;
 export default todoSlice.reducer;
