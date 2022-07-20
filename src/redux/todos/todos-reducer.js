@@ -32,23 +32,22 @@ const todoSlice = createSlice({
         changeFilter(state, {payload}){
             state.filter = payload;
         },
-
+},
         extraReducer:{
             [fetchTodos.pending]:(state, _) => {
                 state.status = 'loading';
                 state.error = null;
             },
-            [fetchTodos.fulfilled]:(state, action) => {
-                state.status = 'resolve';
-                state.todos = action.payload;
-                // state.todos.push('todododododos')
-            }, 
+            [fetchTodos.fulfilled]: (state, action) => {
+                state.status = 'resolved';
+                state.todos.push(action.payload);
+            },
             [fetchTodos.rejected]:(state, _) => {
                 state.status = 'reject';
                 // state.error = 'error';
             },  
         }
-    }
+    
 })
 
 export const {addTodo, deleteTodo, changeFilter} = todoSlice.actions;
