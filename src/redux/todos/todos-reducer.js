@@ -55,7 +55,6 @@ export const addNewTodo = createAsyncThunk(
             throw new Error('error');
         }
         const data = await response.json();
-        console.log(data)
         dispatch(addTodo(data))
         }
         catch (error) {
@@ -75,10 +74,10 @@ const todoSlice = createSlice({
 
   reducers: {
     addTodo(state, {payload}) {
-      state.todos = {
+      state.todos = [...state.todos, {
         id: nanoid(),
         ...payload
-      };
+      }];
     },
     deleteTodo(state, action) {
       state.todos = state.todos.filter(({ id }) => id !== action.payload.id);
@@ -104,11 +103,6 @@ const todoSlice = createSlice({
         state.status = 'reject';
         state.error = action.payload;
       },
-    [addNewTodo.rejected]: (state, action) => {
-        state.status = 'reject';
-        state.error = action.payload;
-    },
-    
   },
 });
 

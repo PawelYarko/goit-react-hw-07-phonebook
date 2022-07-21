@@ -6,7 +6,7 @@ import s from './Form.module.css';
 export default function Form() {
   const [name, setName] = useState('');
   const [phone, setNumber] = useState('');
-  const info = {name, phone}
+  const info = {name, phone};
 
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todos.todos);
