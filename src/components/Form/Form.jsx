@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewTodo, fetchTodos } from '../../redux/todos/todos-reducer';
+import { addNewTodo, fetchTodos } from '../../redux/todos/todos-reducers';
 import s from './Form.module.css';
 
 export default function Form() {

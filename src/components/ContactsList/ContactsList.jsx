@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeTodo } from '../../redux/todos/todos-reducer';
+import { removeTodo } from '../../redux/todos/todos-reducers';
 import s from './Contacts.module.css';
 
 const ContactsList = () => {
@@ -14,7 +14,7 @@ const ContactsList = () => {
 
   return (
     <ul>
-      {visibleContacts.map(({ id, name, phone }) => (  //,createdAt     : {createdAt}
+      {visibleContacts.map(({ id, name, phone }) => ( 
         <li key={id} className={s.listItem}>
           {name}: {phone}                            
           <button

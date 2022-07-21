@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/todos/todos-reducer';
+import { changeFilter } from '../../redux/todos/todos-reducers';
 
 const Filter = () => {
   const dispatch = useDispatch();
