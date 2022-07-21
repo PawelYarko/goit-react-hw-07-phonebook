@@ -6,17 +6,16 @@ const ContactsList = () => {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todos.todos);
   const filter = useSelector(state => state.todos.filter);
-  console.log(todos)
 
-  const visibleContacts = todos.filter(({name}) =>
+  const visibleContacts = todos.filter(({ name }) =>
     name.toLowerCase().includes(filter)
   );
 
   return (
     <ul>
-      {visibleContacts.map(({ id, name, phone }) => ( 
+      {visibleContacts.map(({ id, name, phone }) => (
         <li key={id} className={s.listItem}>
-          {name}: {phone}                            
+          {name}: {phone}
           <button
             className={s.buttonDelete}
             type="button"

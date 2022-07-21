@@ -12,11 +12,7 @@ const Filter = () => {
   return (
     <div>
       <h3>Find contacts by name</h3>
-      <input
-        type="text"
-        name="filter"
-        onChange={onFilterChange}
-      />
+      <input type="text" name="filter" onChange={onFilterChange} />
     </div>
   );
 };

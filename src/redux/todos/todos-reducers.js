@@ -24,44 +24,49 @@ export const removeTodo = createAsyncThunk(
   'todos/removeTodo',
   async function (id, { rejectWithValue, dispatch }) {
     try {
-        const response = await fetch(`https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts/${id}`,{
-            method:'DELETE',
-        });
-        if (!response.ok) {
-            throw new Error('error');
-          }
-        dispatch(deleteTodo({id}));      
+      const response = await fetch(
+        `https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      if (!response.ok) {
+        throw new Error('error');
+      }
+      dispatch(deleteTodo({ id }));
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
 
 export const addNewTodo = createAsyncThunk(
-    'todos/addNewTodo',
-    async function(info, {rejectWithValue, dispatch}){
-        try{
-            const todo ={
-                id: nanoid(),
-                ...info
-            };
-        const response = await fetch('https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts',
-        {method:'POST',
-        headers:{'Content-Type': 'application/json'},
-        body: JSON.stringify(todo)
-    },)
+  'todos/addNewTodo',
+  async function (info, { rejectWithValue, dispatch }) {
+    try {
+      const todo = {
+        id: nanoid(),
+        ...info,
+      };
+      const response = await fetch(
+        'https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(todo),
+        }
+      );
 
-        if (!response.ok) {
-            throw new Error('error');
-        }
-        const data = await response.json();
-        dispatch(addTodo(data))
-        }
-        catch (error) {
-            return rejectWithValue(error.message);
-        }
+      if (!response.ok) {
+        throw new Error('error');
+      }
+      const data = await response.json();
+      dispatch(addTodo(data));
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-)
+  }
+);
 
 const todoSlice = createSlice({
   name: 'todos',
@@ -73,11 +78,14 @@ const todoSlice = createSlice({
   },
 
   reducers: {
-    addTodo(state, {payload}) {
-      state.todos = [...state.todos, {
-        id: nanoid(),
-        ...payload
-      }];
+    addTodo(state, { payload }) {
+      state.todos = [
+        ...state.todos,
+        {
+          id: nanoid(),
+          ...payload,
+        },
+      ];
     },
     deleteTodo(state, action) {
       state.todos = state.todos.filter(({ id }) => id !== action.payload.id);
@@ -100,9 +108,9 @@ const todoSlice = createSlice({
       state.error = action.payload;
     },
     [removeTodo.rejected]: (state, action) => {
-        state.status = 'reject';
-        state.error = action.payload;
-      },
+      state.status = 'reject';
+      state.error = action.payload;
+    },
   },
 });
 
