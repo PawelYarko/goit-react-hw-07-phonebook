@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodo } from '../../redux/todos/todos-reducer';
+import { removeTodo } from '../../redux/todos/todos-reducer';
 import s from './Contacts.module.css';
 
 const ContactsList = () => {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todos.todos);
   const filter = useSelector(state => state.todos.filter);
+  console.log(todos)
 
-  const visibleContacts = todos.filter(todo =>
-    todo.name.toLowerCase().includes(filter)
+  const visibleContacts = todos.filter(({name}) =>
+    name.toLowerCase().includes(filter)
   );
 
   return (
@@ -19,7 +20,7 @@ const ContactsList = () => {
           <button
             className={s.buttonDelete}
             type="button"
-            onClick={() => dispatch(deleteTodo({id}))}
+            onClick={() => dispatch(removeTodo(id))}
           >
             Delete
           </button>
