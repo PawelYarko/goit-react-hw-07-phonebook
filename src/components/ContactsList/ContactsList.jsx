@@ -1,15 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { removeTodo } from '../../redux/todos/todos-reducers';
+import { getVisibleContacts } from '../../redux/todos/todos-selectors';
 import s from './Contacts.module.css';
 
 const ContactsList = () => {
+  const visibleContacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.todos.todos);
-  const filter = useSelector(state => state.todos.filter);
-
-  const visibleContacts = todos.filter(({ name }) =>
-    name.toLowerCase().includes(filter)
-  );
 
   return (
     <ul>
