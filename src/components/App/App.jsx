@@ -2,11 +2,12 @@ import { useSelector } from 'react-redux';
 import Form from '../Form/Form';
 import ContactsList from '../ContactsList/ContactsList';
 import Filter from '../Filter/Filter';
-
+import { getStatus, getError } from '../../redux/todos/todos-selectors';
 import s from './App.module.css';
 
 export default function App() {
-  const { status, error } = useSelector(state => state.todos);
+  const status = useSelector(getStatus);
+  const error = useSelector(getError);
   return (
     <div className={s.container}>
       <h1>Phonebook</h1>

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeTodo } from '../../redux/todos/todos-reducers';
+import { removeTodo } from '../../redux/todos/todos-operations';
 import { getVisibleContacts } from '../../redux/todos/todos-selectors';
 import s from './Contacts.module.css';
 
 const ContactsList = () => {
   const visibleContacts = useSelector(getVisibleContacts);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   return (
     <ul>
       {visibleContacts.map(({ id, name, phone }) => (

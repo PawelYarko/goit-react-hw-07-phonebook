@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNewTodo, fetchTodos } from '../../redux/todos/todos-reducers';
+import { useDispatch } from 'react-redux';
+import { addNewTodo, fetchTodos } from '../../redux/todos/todos-operations';
 import s from './Form.module.css';
 
 export default function Form() {
   const [name, setName] = useState('');
   const [phone, setNumber] = useState('');
-  const info = { name, phone };
 
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.todos.todos);
+
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
+  const info = { name, phone };
 
   const addTask = () => {
     dispatch(addNewTodo(info));
@@ -20,23 +24,10 @@ export default function Form() {
 
   const onContactAdd = e => {
     e.preventDefault();
-
-    const foundContact = todos.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    if (foundContact) {
-      window.alert(`${name} is already in contacts`);
-      return;
-    } else if (!foundContact) {
-      addTask();
-      setName('');
-      setNumber('');
-    }
+    addTask();
+    setName('');
+    setNumber('');
   };
-
-  useEffect(() => {
-    dispatch(fetchTodos());
-  }, [dispatch]);
 
   return (
     <form className={s.form} onSubmit={onContactAdd}>

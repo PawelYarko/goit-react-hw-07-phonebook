@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/todos/todos-reducers';
+import { changeFilter } from '../../redux/todos/todos-filter';
 
 const Filter = () => {
   const dispatch = useDispatch();
 
   const onFilterChange = e => {
-    const normalizedFilter = e.currentTarget.value.toLowerCase();
+    const normalizedFilter = e.target.value.toLowerCase();
     dispatch(changeFilter(normalizedFilter));
   };
 

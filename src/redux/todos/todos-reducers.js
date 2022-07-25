@@ -1,78 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
+import { fetchTodos, removeTodo } from './todos-operations';
 
-export const fetchTodos = createAsyncThunk(
-  'todos/fetchTodos',
-  async function (_, { rejectWithValue }) {
-    try {
-      const response = await fetch(
-        'https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts'
-      );
-
-      if (!response.ok) {
-        throw new Error('error');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const removeTodo = createAsyncThunk(
-  'todos/removeTodo',
-  async function (id, { rejectWithValue, dispatch }) {
-    try {
-      const response = await fetch(
-        `https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts/${id}`,
-        {
-          method: 'DELETE',
-        }
-      );
-      if (!response.ok) {
-        throw new Error('error');
-      }
-      dispatch(deleteTodo({ id }));
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const addNewTodo = createAsyncThunk(
-  'todos/addNewTodo',
-  async function (info, { rejectWithValue, dispatch }) {
-    try {
-      const todo = {
-        id: nanoid(),
-        ...info,
-      };
-      const response = await fetch(
-        'https://62d5e3f115ad24cbf2ce8796.mockapi.io/contacts',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(todo),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('error');
-      }
-      const data = await response.json();
-      dispatch(addTodo(data));
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const todoSlice = createSlice({
   name: 'todos',
   initialState: {
     todos: [],
-    filter: '',
     status: null,
     error: null,
   },
@@ -89,9 +23,6 @@ const todoSlice = createSlice({
     },
     deleteTodo(state, action) {
       state.todos = state.todos.filter(({ id }) => id !== action.payload.id);
-    },
-    changeFilter(state, { payload }) {
-      state.filter = payload;
     },
   },
   extraReducers: {
